@@ -26,18 +26,19 @@ class Counter extends Component {
   }
   state = {}
   render() {
-    const {showGrinder, showManager} = this.state;
+    const {showGrinder, showManager, buttonLoading} = this.state;
     
     return (
       <div id="background"
         style={{
-          display: "block",
+          display: "flex",
+          flexDirection: "column",
           justifyContent: "center", 
           alignItems: "center",
           backgroundColor: 'white'
         }}
       >        
-      <div style={{display: "flex",justifyContent: "center",alignItems: "center",paddingBottom:75, paddingTop:30}}>
+      <div style={{display: "flex",justifyContent: "center",alignItems: "center", position: "absolute", top: 40}}>
         <this.ToggleButton/>
       </div>
       <div style={{display: "flex",justifyContent: "center",alignItems: "center"}}>
@@ -61,23 +62,24 @@ class Counter extends Component {
       <div
           style={{
             display: "flex",
-            position: "absolute",
-            bottom: 20,
+            position: "bottom",
             justifyContent: "center", 
             alignItems: "center",
+            position: "absolute",
+            bottom: 20,
           }}
           >
-            <img src={logoFoundation} alt="description" style={{ width: 140, height: 50}}></img>
-            <img src={logoL4ms} alt="description" style={{ width: 140, height: 50}}></img>
-            <img src={logoTreco} alt="description" style={{ width: 140, height: 50}}></img>
-            <img src={logoJcoating} alt="description" style={{ width: 140, height: 50}}></img>
+            <img src={logoFoundation} alt="description" style={{ width: 140, height: 50, marginRight:40}}></img>
+            <img src={logoL4ms} alt="description" style={{ width: 140, height: 50,marginRight:40}}></img>
+            <img src={logoTreco} alt="description" style={{ width: 140, height: 50,marginRight:40}}></img>
+            <img src={logoJcoating} alt="description" style={{ width: 140, height: 50,marginRight:40}}></img>
         </div> 
       </div>
     );
   }
 
   // simulate loading for button
-  simulateNetworkRequest() {
+  simulateNetworkRequest(btnname) {
     return new Promise((resolve) => setTimeout(resolve, 2000));
   }
   // GO -> haul the cart to storage
@@ -86,7 +88,7 @@ class Counter extends Component {
 
     useEffect(() => {
       if (isLoading) {
-        this.simulateNetworkRequest().then(() => {
+        this.simulateNetworkRequest("GO").then(() => {
           setLoading(false);
         });
       }
@@ -213,7 +215,6 @@ class Counter extends Component {
       </>
     );
   }
-
   async makeBtnPressed(btnname) {
     const pressedTrue = {
       readings: {
